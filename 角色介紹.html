@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!-- saved from url=(0099)http://localhost:63342/webdes/index1.html?_ijt=du2n6mopfl914tr2slv6r4f5ht&_ij_reload=RELOAD_ON_SAVE -->
+<html lang="zh-Hant"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>角色介紹</title>
+    <link rel="stylesheet" href="./角色介紹_files/角色介紹.css">
+
+</head>
+<body>
+
+<div class="header">
+    <img src="./角色介紹_files/under-tides-rerun-artwork-v0-exwz72nwlk291.jpg" alt="封面圖1">
+</div>
+
+<div class="nav">
+    <a href="http://localhost:63342/webdes/index.html">首頁</a>
+    <a href="http://localhost:63342/webdes/index1.html?_ijt=du2n6mopfl914tr2slv6r4f5ht&amp;_ij_reload=RELOAD_ON_SAVE#">角色介紹</a>
+    <a href="http://localhost:63342/webdes/index2.html">設定</a>
+    <a href="http://localhost:63342/webdes/index3.html">場景圖</a>
+    <a href="http://localhost:63342/webdes/index4.html">更多內容</a>
+</div>
+
+<div class="content">
+    <h2>角色介紹</h2>
+
+    <div class="character show">
+        <div class="kelsey">
+            <img src="./角色介紹_files/立绘_凯尔希_1.png" alt="凱爾希">
+        </div>
+        <div class="kelsey">
+            <div class="description">
+                <h3>凱爾希</h3>
+                <p>
+                    羅德島最高管理者之一，阿米婭的直接輔導者。羅德島的醫療部門的總負責人。作為羅德島的老成員，凱爾希醫生是在阿米婭背後最穩固的援護者。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="character">
+        <img src="./角色介紹_files/立绘_阿米娅_1.png" alt="阿米婭">
+        <div class="description">
+            <h3>阿米娅</h3>
+            <p>
+                羅德島的公開領袖，在內部擁有最高執行權。雖然，從外表上看起來僅僅是個不成熟的少女，實際上，她卻是深受大家信任的合格領袖。現在，阿米婭正帶領著羅德島，為了感染者的未來，為了讓這片大地掙脫礦石病的陰霾不懈努力。
+            </p>
+        </div>
+    </div>
+
+    <div class="character">
+        <img src="./角色介紹_files/立绘_陈_1.png" alt="陳">
+        <div class="description">
+            <h3>陳</h3>
+            <p>
+                龍門高級警司，龍門近衛局特別督察組組長，畢業於維多利亞皇家近衛學校，成績優異，表現突出。在龍門近衛局供職期間，力主取締龍門境內非法活動，對抗暴力犯罪和有組織犯罪，追緝武裝逃犯與國際重犯等行動，並取得多項重大成果。現作為特別人員協助羅德島行動，並現場提供戰術指揮支援。
+            </p>
+        </div>
+    </div>
+
+    <div class="character">
+        <img src="./角色介紹_files/立绘_德克萨斯_1.png" alt="德克薩斯">
+        <div class="description">
+            <h3>德克薩斯</h3>
+            <p>
+                企鵝物流員工，單兵作戰能力出類拔萃。于合約期內任企鵝物流駐羅德島聯絡人員，同時為羅德島的多項行動提供協助。
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const characters = document.querySelectorAll('.character');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    characters.forEach(el => observer.observe(el));
+</script>
+
+
+
+<script>
+(function() {
+  var ws = new WebSocket('ws://' + window.location.host + 
+             '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
+             'referrer=' + encodeURIComponent(window.location.pathname));
+  ws.onmessage = function (msg) {
+      if (msg.data === 'reload') {
+          window.location.reload();
+      }
+      if (msg.data.startsWith('update-css ')) {
+          var messageId = msg.data.substring(11);
+          var links = document.getElementsByTagName('link');
+          for (var i = 0; i < links.length; i++) {
+              var link = links[i];
+              if (link.rel !== 'stylesheet') continue;
+              var clonedLink = link.cloneNode(true);
+              var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
+              if (newHref !== link.href) {
+                clonedLink.href = newHref;
+              }
+              else {
+                var indexOfQuest = newHref.indexOf('?');
+                if (indexOfQuest >= 0) {
+                  // to support ?foo#hash 
+                  clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' + 
+                                    newHref.substring(indexOfQuest + 1);
+                }
+                else {
+                  clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
+                }
+              }
+              link.replaceWith(clonedLink);
+          }
+      }
+  };
+})();
+</script></body></html>

@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    font-family: "Microsoft JhengHei", sans-serif;
+    background-color: #fff;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header img {
+    width: 100%;
+    height: auto;
+    display: block;
+    animation: fadeIn 1s ease-in;
+}
+
+/* 導覽列 */
+.nav {
+    display: flex;
+    justify-content: center;
+    background-color: #d1d1d1;
+}
+
+.nav a {
+    padding: 15px 25px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.nav a:hover {
+    background-color: #aaa;
+}
+
+/* 圖片區塊 */
+.character {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    /* 取消原本CSS動畫 */
+    /* animation: fadeIn 1s ease-in forwards;
+    animation-delay: 0.3s; */
+}
+
+.character a {
+    display: block;
+}
+
+.character img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.character img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.character img:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 動畫觸發時加的class */
+.fadeInActive {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .character {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .character img {
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+}

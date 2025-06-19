@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- saved from url=(0098)http://localhost:63342/webdes/index.html?_ijt=fgjje4kre5ef1k45ulno4pm2db&_ij_reload=RELOAD_ON_SAVE -->
+<html lang="zh-Hant"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>首頁</title>
+    <link rel="stylesheet" href="./首頁_files/首頁.css">
+</head>
+<body>
+
+<div class="header">
+    <img id="mainImage" src="./首頁_files/yibj2uwg03w61.jpg" alt="封面圖" style="opacity: 1;">
+</div>
+
+<div class="nav">
+    <a href="http://localhost:63342/webdes/index.html?_ijt=fgjje4kre5ef1k45ulno4pm2db&amp;_ij_reload=RELOAD_ON_SAVE#">首頁</a>
+    <a href="http://localhost:63342/webdes/index1.html">角色介紹</a>
+    <a href="http://localhost:63342/webdes/index2.html">設定</a>
+    <a href="http://localhost:63342/webdes/index3.html">場景圖</a>
+    <a href="http://localhost:63342/webdes/index4.html">更多內容</a>
+</div>
+
+<div class="content">
+    <div class="character">
+        <div class="description" id="storyIntro">
+            <h2>劇情簡介</h2>
+            <p>
+                遊戲設定在一個名為「泰拉」的架空世界，這個世界充滿著名為「源石」的神秘礦物。
+                雖然能帶來強大能量，但也會導致一種被稱為「礦石病」的絕症，感染者被稱為「感染者」，常遭到歧視與迫害。
+                玩家扮演名為「博士」的角色，作為醫療與武裝機構「羅德島」的核心指揮官，帶領一群具有特殊能力的幹員對抗疾病、
+                恐怖組織「整合運動」、腐敗政權與其他勢力，並努力尋找治療礦石病的可能方法。
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 淡入圖片
+    window.addEventListener('load', () => {
+        document.getElementById('mainImage').style.opacity = 1;
+    });
+
+    // 滾動到劇情簡介時顯示
+    window.addEventListener('scroll', () => {
+        const intro = document.getElementById('storyIntro');
+        const rect = intro.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+            intro.classList.add('fade-in-visible');
+        }
+    });
+
+    // 點擊導覽列加入淡出動畫後跳轉
+    document.querySelectorAll('.nav a').forEach(link => {
+        link.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === "#") return;
+            e.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+                window.location.href = href;
+            }, 500);
+        });
+    });
+</script>
+
+
+
+<script>
+(function() {
+  var ws = new WebSocket('ws://' + window.location.host + 
+             '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
+             'referrer=' + encodeURIComponent(window.location.pathname));
+  ws.onmessage = function (msg) {
+      if (msg.data === 'reload') {
+          window.location.reload();
+      }
+      if (msg.data.startsWith('update-css ')) {
+          var messageId = msg.data.substring(11);
+          var links = document.getElementsByTagName('link');
+          for (var i = 0; i < links.length; i++) {
+              var link = links[i];
+              if (link.rel !== 'stylesheet') continue;
+              var clonedLink = link.cloneNode(true);
+              var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
+              if (newHref !== link.href) {
+                clonedLink.href = newHref;
+              }
+              else {
+                var indexOfQuest = newHref.indexOf('?');
+                if (indexOfQuest >= 0) {
+                  // to support ?foo#hash 
+                  clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' + 
+                                    newHref.substring(indexOfQuest + 1);
+                }
+                else {
+                  clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
+                }
+              }
+              link.replaceWith(clonedLink);
+          }
+      }
+  };
+})();
+</script></body></html>
